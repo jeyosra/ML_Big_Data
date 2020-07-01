@@ -122,8 +122,8 @@ class ALS  (
       this.numProductBlocks
     }
 
-    val (floatUserFactors, floatProdFactors) = NewALS2.train[Int](
-      ratings = ratings.map(r => NewALS2.Rating(r.user, r.product, r.rating.toFloat)),
+    val (floatUserFactors, floatProdFactors) = NewALS.train[Int](
+      ratings = ratings.map(r => NewALS.Rating(r.user, r.product, r.rating.toFloat)),
       rank = rank,
       numUserBlocks = numUserBlocks,
       numItemBlocks = numProductBlocks,
@@ -167,18 +167,7 @@ object ALS {
       blocks: Int,
       seed: Long
     ): MatrixFactorizationModel = {
-    new ALS2(blocks, blocks, rank, iterations, lambda, false, 1.0, seed).run(ratings)
-  }
-
-
-  def train(
-      ratings: RDD[Rating],
-      rank: Int,
-      iterations: Int,
-      lambda: Double,
-      blocks: Int
-    ): MatrixFactorizationModel = {
-    new ALS2(blocks, blocks, rank, iterations, lambda, false, 1.0).run(ratings)
+    new ALS(blocks, blocks, rank, iterations, lambda, false, 1.0, seed).run(ratings)
   }
 
 
@@ -203,20 +192,9 @@ object ALS {
       alpha: Double,
       seed: Long
     ): MatrixFactorizationModel = {
-    new ALS2(blocks, blocks, rank, iterations, lambda, true, alpha, seed).run(ratings)
+    new ALS(blocks, blocks, rank, iterations, lambda, true, alpha, seed).run(ratings)
   }
 
-
-  def trainImplicit(
-      ratings: RDD[Rating],
-      rank: Int,
-      iterations: Int,
-      lambda: Double,
-      blocks: Int,
-      alpha: Double
-    ): MatrixFactorizationModel = {
-    new ALS2(blocks, blocks, rank, iterations, lambda, true, alpha).run(ratings)
-  }
 
 
   def trainImplicit(ratings: RDD[Rating], rank: Int, iterations: Int, lambda: Double, alpha: Double)
