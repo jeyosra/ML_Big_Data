@@ -3,7 +3,7 @@ package org.apache.spark.mllib.recommendation
 import org.apache.spark.Logging
 import org.apache.spark.annotation.{DeveloperApi, Since}
 import org.apache.spark.api.java.JavaRDD
-import org.apache.spark.ml.recommendation.{ALS2 => NewALS2}
+import org.apache.spark.ml.recommendation.{ALS=> NewALS}
 import org.apache.spark.rdd.RDD
 import org.apache.spark.storage.StorageLevel
 
